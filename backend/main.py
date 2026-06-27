@@ -1,22 +1,4 @@
-"""
-app.py
-------
-FastAPI backend for FraudSense, fulfilling the "Deployment & User Testing
-Plan" section of the proposal. FastAPI is used (instead of the originally
-proposed Flask) for faster async routing and automatic API documentation.
 
-Endpoints
-  GET  /api/health     -> service status
-  GET  /api/metrics    -> training metrics for all models + the chosen one
-  POST /api/predict    -> { "text": "..." } -> classification result
-  POST /api/feedback   -> stores user-testing questionnaire submissions
-  GET  /api/feedback   -> aggregated user-testing results
-
-Interactive docs are auto-generated at  /docs
-
-Run:  uvicorn app:app --host 0.0.0.0 --port 5000
-  or: python app.py
-"""
 
 import json
 import os
