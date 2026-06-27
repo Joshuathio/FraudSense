@@ -25,7 +25,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:5173",
-        "https://fraud-sense-psx0zu7ft-joshuathiopelus-9377s-projects.vercel.app"
+        "https://fraud-sense-pearl.vercel.app"
     ],
     allow_credentials=True,
     allow_methods=["*"],
