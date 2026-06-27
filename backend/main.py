@@ -41,9 +41,13 @@ app = FastAPI(
 # Allow the React dev server (different port) to call this API.
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=[
+        "http://localhost:5173",
+        "https://fraud-sense-psx0zu7ft-joshuathiopelus-9377s-projects.vercel.app"
+    ],
+    allow_credentials=True,
     allow_methods=["*"],
-    allow_headers=["*"],
+    allow_headers=["*"]
 )
 
 
@@ -156,5 +160,7 @@ def get_feedback():
 
 if __name__ == "__main__":
     import uvicorn
-    print("FraudSense API starting on http://localhost:5000  (docs at /docs)")
-    uvicorn.run(app, host="0.0.0.0", port=5000)
+    port = int(os.getenv("PORT", 5000))
+
+    print(f"FraudSense API starting on port {port}")
+    uvicorn.run(app, host="0.0.0.0", port=port)
