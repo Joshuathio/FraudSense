@@ -1,30 +1,4 @@
-"""
-train.py
---------
-Trains and compares the three models specified in the proposal:
 
-  - Naive Bayes (MultinomialNB)
-  - Logistic Regression
-  - Support Vector Machine (LinearSVC, probability-calibrated)
-
-Pipeline (per the proposal's "Initial Plan for Model/Methodology"):
-  1. Load + merge the email and SMS datasets (Indonesian-language spam data)
-  2. Preprocess text with the shared clean_text() function
-  3. TF-IDF feature extraction (uni- + bi-grams)
-  4. 80:20 train/test split (stratified)
-  5. Train each model; evaluate with Accuracy / Precision / Recall / F1 /
-     Confusion Matrix, plus 5-fold cross-validated F1
-  6. Per-channel evaluation (email vs SMS) to confirm generalization
-  7. Select the best model by F1-score (recall & F1 are prioritized, since
-     missing a fraud message is worse than a false alarm)
-  8. Persist the winning model + vectorizer + metrics to ./models/
-
-Datasets expected in ./data/:
-  email_spam_indo.csv   columns: Kategori, Pesan
-  sms_spam_indo.csv     columns: Kategori, Pesan
-
-Run:  python train.py
-"""
 
 import json
 import os
@@ -50,11 +24,7 @@ os.makedirs(MODEL_DIR, exist_ok=True)
 
 
 def load_dataset():
-    """Load and merge the email + SMS datasets into one DataFrame.
 
-    Handles the Indonesian datasets (columns 'Kategori' / 'Pesan') and is
-    flexible about column naming so English Kaggle files also work.
-    """
     frames = []
     for fname, channel in [("email_spam_indo.csv", "email"),
                            ("sms_spam_indo.csv", "sms")]:
@@ -91,7 +61,6 @@ def load_dataset():
 
 
 def evaluate(name, model, X_test, y_test):
-    """Compute and print the proposal's evaluation metrics."""
     preds = model.predict(X_test)
     metrics = {
         "model": name,

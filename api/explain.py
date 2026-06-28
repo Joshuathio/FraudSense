@@ -134,11 +134,6 @@ def _extract_linear_coef(model):
 
 
 def top_model_signals(raw_text: str, vectorizer, model, top_n: int = 6):
-    """
-    Return the words in this message that most pushed the model toward a
-    'fraud' prediction, using TF-IDF weights x model coefficients where
-    available (Logistic Regression / SVM). Falls back gracefully.
-    """
     try:
         from preprocess import clean_text
         cleaned = clean_text(raw_text)
@@ -168,7 +163,6 @@ def top_model_signals(raw_text: str, vectorizer, model, top_n: int = 6):
 
 
 def build_explanation(raw_text: str, prediction: int, vectorizer=None, model=None):
-    """Assemble a human-readable explanation dict for the UI."""
     keywords = find_keywords(raw_text)
     urls = find_urls(raw_text)
     signals = []
@@ -205,3 +199,5 @@ if __name__ == "__main__":
     txt = ("SELAMAT! Anda pemenang undian berhadiah. Klik di sini dan verifikasi "
            "data pribadi Anda di http://hadiah-palsu.com untuk klaim sekarang.")
     print(json.dumps(build_explanation(txt, 1), indent=2, ensure_ascii=False))
+
+
