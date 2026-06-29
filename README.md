@@ -75,40 +75,6 @@ fraudsense/
 
 ---
 
-## How to run
-
-You need **Python 3.10+** and **Node.js 18+**.
-
-### 1. Backend (terminal 1)
-
-```bash
-./run_backend.sh
-```
-
-This installs dependencies, trains the model on first run, and starts the API
-at `http://localhost:5000`. Interactive API docs are at
-`http://localhost:5000/docs`.
-
-To do it manually:
-
-```bash
-cd backend
-pip install -r requirements.txt
-python train.py        # train the models (first time only)
-python app.py          # start the API
-```
-
-### 2. Frontend (terminal 2)
-
-```bash
-./run_frontend.sh
-```
-
-Then open `http://localhost:5173` in your browser. The dev server proxies
-`/api` calls to the backend automatically.
-
----
-
 ## Methodology
 
 The pipeline follows the proposal's *Initial Plan for Model/Methodology*.
@@ -151,26 +117,6 @@ Combined, they contain roughly 3,800 labeled messages.
 loader auto-detects common column names (`Kategori`/`Pesan`, `text`/`label`,
 `Text`/`Class`, etc.) and the label standardizer handles `spam`/`ham`, `1`/`0`,
 `fraud`/`not_fraud`, and similar encodings. Then re-run `python train.py`.
-
----
-
-## API reference
-
-| Method | Endpoint | Description |
-|---|---|---|
-| GET | `/api/health` | Service status |
-| GET | `/api/metrics` | Training metrics for all models |
-| POST | `/api/predict` | Classify a message — body: `{"text": "..."}` |
-| POST | `/api/feedback` | Store a user-testing questionnaire submission |
-| GET | `/api/feedback` | Aggregated user-testing results |
-
-Example:
-
-```bash
-curl -X POST http://localhost:5000/api/predict \
-  -H "Content-Type: application/json" \
-  -d '{"text": "SELAMAT! Anda pemenang undian. Klik link ini."}'
-```
 
 ---
 
